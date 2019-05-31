@@ -1,0 +1,36 @@
+import actividades.*
+
+describe "test de Salida de Trekking" {
+	
+	var salida = new SalidaTrekking()
+	
+	test "salida con 100 km y 130 dias de sol" {
+		
+		salida.kilometrosDeSenderos(100)
+		salida.diasDeSol(130)
+		
+		assert.equals(2, salida.diasQueLleva())
+		assert.equals(true, salida.implicaEsfuerzo())
+		assert.equals(false, salida.sirveParaBoncearse())
+	}
+	
+	test "salida con 50 km y 240 dias de sol" {
+		
+		salida.kilometrosDeSenderos(50)
+		salida.diasDeSol(240)
+		
+		assert.equals(1, salida.diasQueLleva())
+		assert.equals(false, salida.implicaEsfuerzo())
+		assert.equals(true, salida.sirveParaBoncearse())
+	}
+	
+	test "salida con 250 km y 130 dias de sol" {
+		
+		salida.kilometrosDeSenderos(250)
+		salida.diasDeSol(130)
+		
+		assert.equals(5, salida.diasQueLleva())
+		assert.equals(true, salida.implicaEsfuerzo())
+		assert.equals(true, salida.sirveParaBoncearse())
+	}
+}

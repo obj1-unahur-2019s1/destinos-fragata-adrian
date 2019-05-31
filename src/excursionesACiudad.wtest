@@ -1,0 +1,53 @@
+import actividades.*
+
+describe "test de escurciones a ciudad" {
+	
+	var ciudadNormal = new ExcursionCiudad()
+	var ciudadTropical = new ExcursionCiudadTropical()
+	
+	test "ciudad normal con 4 atracciones"{
+		
+		ciudadNormal.cantidadDeAtracciones(4)
+		
+		assert.equals(2, ciudadNormal.diasQueLleva())
+		assert.equals(false, ciudadNormal.implicaEsfuerzo())
+		assert.equals(false, ciudadNormal.sirveParaBroncearse())
+	}
+	
+	test "ciudad tropical con 4 atracciones" {
+		
+		ciudadTropical.cantidadDeAtracciones(4)
+		
+		assert.equals(3, ciudadTropical.diasQueLleva())
+		assert.equals(false, ciudadTropical.implicaEsfuerzo())
+		assert.equals(true, ciudadTropical.sirveParaBroncearse())
+	}
+	
+	test "ciudad normal con 8 atracciones" {
+		
+		ciudadNormal.cantidadDeAtracciones(8)
+		
+		assert.equals(4, ciudadNormal.diasQueLleva())
+		assert.equals(true, ciudadNormal.implicaEsfuerzo())
+		assert.equals(false, ciudadNormal.sirveParaBroncearse())
+	}
+	
+	
+	test "ciudad tropical con 8 atracciones" {
+		
+		ciudadTropical.cantidadDeAtracciones(8)
+		
+		assert.equals(5, ciudadTropical.diasQueLleva())
+		assert.equals(true, ciudadTropical.implicaEsfuerzo())
+		assert.equals(true, ciudadTropical.sirveParaBroncearse())
+	}
+	
+	test "ciudad tropical con 10 atracciones" {
+		
+		ciudadTropical.cantidadDeAtracciones(10)
+		
+		assert.equals(6, ciudadTropical.diasQueLleva())
+		assert.equals(false, ciudadTropical.implicaEsfuerzo())
+		assert.equals(true, ciudadTropical.sirveParaBroncearse())
+	}
+}
