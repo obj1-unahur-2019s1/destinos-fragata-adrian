@@ -3,28 +3,33 @@ import actividades.*
 
 describe "test de socios" {
 	
+	//socios
 	var roque = new Socio(maximoDeActividades = 2)
 	var ana = new Socio(maximoDeActividades = 3)
 	var socioR = new SocioRelajado(maximoDeActividades = 3, idiomasQueHabla = ["español", "quechua"])
+	//actividades
 	var playa1 = new ViajeDePlaya(largo = 1000)
 	var playa2 = new ViajeDePlaya(largo = 2000)
 	var gimnasia = new ClaseGimnasia()
 	var excursion1 = new ExcursionCiudad(idiomas = ["italiano", "frances"], cantidadDeAtracciones = 4)
 	
-	test "Roque con 2 actividades de maximo" { 
-		
+	fixture {
 		roque.registrarActividad(playa1)
 		roque.registrarActividad(playa2)
 		
+		ana.registrarActividad(playa1)
+		ana.registrarActividad(playa2)
+	}
+	
+	test "Roque con 2 actividades de maximo" { 
+
 		assert.equals(true, roque.esAdoradorDelSol())
 		assert.equals([playa2], roque.actividadesEsforzadas())
+		assert.throwsException({roque.registrarActividad(gimnasia)})
 		//roque.registrarActividad(gimnasia) //error provocado
 	}
 	
 	test "Ana con 3 actividades de maximo" {
-		
-		ana.registrarActividad(playa1)
-		ana.registrarActividad(playa2)
 		
 		assert.equals(true, ana.esAdoradorDelSol())
 		assert.equals([playa2], ana.actividadesEsforzadas())
@@ -35,7 +40,7 @@ describe "test de socios" {
 		assert.equals([playa2, gimnasia], ana.actividadesEsforzadas())
 	}
 	
-	test "socio relajado"{
+	test "socio relajado" {
 		
 		assert.equals(true, socioR.leAtrae(gimnasia))
 		assert.equals(false, socioR.leAtrae(excursion1))

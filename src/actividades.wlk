@@ -23,7 +23,7 @@ class ViajeDePlaya inherits Viaje {
 class ExcursionCiudad inherits Viaje {
 	var property cantidadDeAtracciones = 0
 	
-	method diasQueLleva() { return cantidadDeAtracciones / 2 }
+	method diasQueLleva() { return cantidadDeAtracciones.div(2) }
 	
 	method implicaEsfuerzo() { return cantidadDeAtracciones.between(5, 8) }
 	
@@ -54,7 +54,8 @@ class SalidaTrekking inherits Viaje {
 }
 
 class ClaseGimnasia {
-	const property idiomas = ["español"]
+	
+	method idiomas() { return ["español"] }
 	
 	method diasQueLleva() { return 1 }
 	
@@ -68,14 +69,18 @@ class ClaseGimnasia {
 class TallerLiterario {
 	var property librosQueTrabaja = [ ]
 	
-	method idiomasUsados() { return librosQueTrabaja.filter({libro => libro.idioma()}) }
+	method idiomasUsados() { return librosQueTrabaja.map({libro => libro.idioma()}) }
 	
 	method diasQueLleva() { return librosQueTrabaja.size() + 1 }
 	
 	method implicaEsfuerzo() { 
 		return librosQueTrabaja.any({libro => libro.paginas() >= 500}) 
-			or librosQueTrabaja.filter({libro => libro.nombreautor()}).size() == 1
+			or librosQueTrabaja.all({libro => self.hayUnSoloAutor(libro.nombreautor())})//.size() == 1
 			and librosQueTrabaja.size() > 1
+	}
+	
+	method hayUnSoloAutor(nombre) { 
+		return librosQueTrabaja.all({libro => libro.autor() == nombre})
 	}
 	
 	method sirveParaBroncearse() { return false }
